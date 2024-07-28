@@ -53,4 +53,4 @@
 <!-- なお今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。 -->
 
 ###実装機能リスト（スプレッドシート）
-https://docs.google.com/spreadsheets/d/1ZdRT-IlR4drbmrxtR7lKT_WyfqZmEHfKcPcUBQzlZjU/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/15ah2NZGnyMu34K6sdvzML7swjIStE6UlMuo3inLrCO0/edit?usp=sharing
