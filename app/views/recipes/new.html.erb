@@ -1,0 +1,57 @@
+<h1>レシピ投稿フォーム</h1>
+<%= form_with model: @post_image do |f| %>
+  <h4>画像</h4>
+  <%= f.file_field :image, accept: "image/*" %>
+  <h4>レシピ名</h4>
+  <%= f.text_field :name %>
+  <h4>レシピ説明</h4>
+  <%= f.text_area :introduction %>
+  <h4>レシピ説明</h4>
+  <%= f.select :category, options_for_select([["Tech", 1], ["Lifestyle", 2]]) %>
+  <h4>エネルギー（kcal）</h4>
+  <%= f.text_field :energy %>
+  <h4>たんぱく質（g）</h4>
+  <%= f.text_field :protein %>
+  <h4>脂質（g）</h4>
+  <%= f.text_field :fat %>
+  <h4>食塩相当量（g）</h4>
+  <%= f.text_field :sodium %>
+  
+  
+  <%= f.submit "投稿" %>
+<% end %>
+
+
+<h1>レシピ投稿フォーム</h1>
+<%= form_with model: @post_image do |f| %>
+  <h4>画像</h4>
+  <%= f.file_field :image, accept: "image/*" %>
+
+  <h4>レシピ名</h4>
+  <%= f.text_field :name %>
+
+  <h4>レシピ説明</h4>
+  <%= f.text_area :introduction %>
+
+  <h4>カテゴリー</h4>
+  <% Category.all.each do |category| %>  <!-- Categoryテーブルの全てのレコードをループで表示 -->
+    <div>
+      <%= f.check_box :category_ids, { multiple: true }, category.id, nil %> <!-- チェックボックス形式でカテゴリー選択 -->
+      <%= category.category_name %>  <!-- カテゴリー名を表示 -->
+    </div>
+  <% end %>
+
+  <h4>エネルギー（kcal）</h4>
+  <%= f.text_field :energy %>
+
+  <h4>たんぱく質（g）</h4>
+  <%= f.text_field :protein %>
+
+  <h4>脂質（g）</h4>
+  <%= f.text_field :fat %>
+
+  <h4>食塩相当量（g）</h4>
+  <%= f.text_field :sodium %>
+
+  <%= f.submit "投稿" %>
+<% end %>

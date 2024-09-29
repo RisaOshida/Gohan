@@ -1,0 +1,16 @@
+<div>
+  <%= image_tag @recipe.get_image %>
+  <p>レシピ名：<%= @recipe.name %></p>
+  <p>説明：<%= @recipe.introduction %></p>
+  <p>投稿ユーザー画像：<%= image_tag @recipe.user.get_image(100,100) %></p>
+  <p>ユーザーネーム：<%= @resipe.user.name %></p>
+  <p>投稿日時：<%= @recipe.created_at.strftime("%Y/%m/%d") %></p>
+  <p>食材：<%= @recipe.step %></p>
+  <p>手順：<%= @recipe.step %></p>
+  <p>手順：<%= @recipe.step %></p>
+
+  <% if @recipe.user == current_user %>
+    <%= link_to "編集", edit_recipe_path(@recipe) %>
+    <%= link_to "削除", recipe_path(@recipe), method: :delete %>
+  <% end %>
+</div>
