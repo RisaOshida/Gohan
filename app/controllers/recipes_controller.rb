@@ -1,27 +1,37 @@
 class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
+    @categories = Category.all
+    10.times do
+      @recipe.ingredients.build
+      @recipe.steps.build
+    end
   end
 
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id
     @recipe.save
-    redirect_to recipe_path(recipe.id)
+    redirect_to recipe_path(@recipe)
   end
 
   def index
     @recipes = Recipe.all
-   # if # params[プロパティ名]が存在する場合
-      # 検索フォームで入力した商品名をもとにデータを取得
-    #else
-      # 今まで通り、一覧表示用のデータを取得
-  #  end
+    @categories = Category.all
+    if params[:name].present?
+      @recipes = @recipes.where(name: params[:name])
+    end
+    if params[:category_id].present?
+      @recipes = @recipes.where(category_id: params[:category_id])
+    end
   end
 
   def show
     @recipe = Recipe.find(params[:id])
     @comment = Comment.new
+    @good = Good.new
+    @ingredients = Ingredient.all
+    @steps = Step.all
   end
 
   def edit
@@ -52,7 +62,9 @@ private
       :protein,
       :fat,
       :sodium,
-      category_ids: []
+      :category_id,
+      ingredients_attributes: [:name],
+      steps_attributes: [:step, :order],
     )
   end
 end

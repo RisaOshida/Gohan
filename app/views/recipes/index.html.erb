@@ -1,14 +1,24 @@
 <h1>recipe indexページ</h1>
 
+<%= form_with url: root_path, method: :get do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit "search" %>
+<% end %>
 
+<% @categories.each do |category| %>
+  <%= link_to category.name, root_path(category_id: category.id) %>
+<% end %>
 
 
 <% @recipes.each do |recipe| %>
   <div>
-    <%= image_tag recipe.get_image %>
+    <%= link_to recipe_path(reipe.id) do %>
+      <%= image_tag recipe.get_image, size: "200x200" %>
+      <p>レシピ名：<%= recipe.name %></p>
+    <% end %>
     <p>投稿ユーザー画像：<%= image_tag "noimage.jpg" %></p>
-    <p>レシピ名：<%= recipe.name %></p>
     <p>ユーザーネーム：<%= recipe.user.name %></p>
+    <p>レシピ説明</p>：<%= recipe.introduction %></p>
     <p>エネルギー（kcal）：<%= recipe.energy %></p>
     <p>たんぱく質（g）：<%= recipe.protein %></p>
     <p>脂質（g）：<%= recipe.fat %></p>
