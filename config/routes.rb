@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :admins, skip: %i(registrations), controllers: {
-    sessions: "admins/sessions",
+    sessions: "admin/sessions",
   }
 
   namespace :admin do
@@ -20,11 +20,12 @@ Rails.application.routes.draw do
     resources :categories, only: %i(index create edit update destroy)
     resources :users, only: %i(index show edit update destroy)
     resources :comments, only: %i(index destroy)
+    get 'dashboards', to: 'dashboards#index'
   end
 
   resources :recipes, only: %i(show new create edit update destroy) do
     resources :comments, only: %i(create destroy)
-    resources :goods, only: %i(create destroy)
+    resource :goods, only: %i(create destroy)
   end
 
   resources :users, only: %i(index show)

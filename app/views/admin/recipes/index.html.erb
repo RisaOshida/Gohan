@@ -1,0 +1,18 @@
+<h1>recipe indexページ</h1>
+
+<% @recipes.each do |recipe| %>
+  <div>
+    id: <%= recipe.id %>
+    <%= link_to admin_recipe_path(recipe.id) do %>
+      <%= image_tag recipe.get_image, size: "200x200" %>
+      <p>レシピ名：<%= recipe.name %></p>
+    <% end %>
+    <p>投稿ユーザー画像：<%= image_tag "noimage.jpg" %></p>
+    <p>ユーザーネーム：<%= recipe.user.name %></p>
+    <p>レシピ説明</p>：<%= recipe.introduction %></p>
+    <p>エネルギー（kcal）：<%= recipe.energy %></p>
+    <p>たんぱく質（g）：<%= recipe.protein %></p>
+    <p>脂質（g）：<%= recipe.fat %></p>
+    <p>食塩相当量（g）：<%= recipe.sodium %></p>
+  </div>
+<% end %>

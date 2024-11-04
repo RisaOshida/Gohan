@@ -1,4 +1,4 @@
-<h1>recipe indexページ</h1>
+<h1>みんなのレシピを見る</h1>
 
 <%= form_with url: root_path, method: :get do |f| %>
   <%= f.text_field :name %>
@@ -12,16 +12,23 @@
 
 <% @recipes.each do |recipe| %>
   <div>
-    <%= link_to recipe_path(reipe.id) do %>
+    <%= link_to recipe_path(recipe.id) do %>
       <%= image_tag recipe.get_image, size: "200x200" %>
       <p>レシピ名：<%= recipe.name %></p>
     <% end %>
-    <p>投稿ユーザー画像：<%= image_tag "noimage.jpg" %></p>
+
+    <% if recipe.user.image.attached? %>
+      <p>投稿ユーザー画像：<%= image_tag recipe.user.image.variant(resize_to_fill: [100, 100]) %></p>
+    <% else %>
+      <p>投稿ユーザー画像：<%= image_tag "noimage.jpg", size: "100x100" %></p>
+    <% end %>
+
     <p>ユーザーネーム：<%= recipe.user.name %></p>
     <p>レシピ説明</p>：<%= recipe.introduction %></p>
     <p>エネルギー（kcal）：<%= recipe.energy %></p>
     <p>たんぱく質（g）：<%= recipe.protein %></p>
     <p>脂質（g）：<%= recipe.fat %></p>
     <p>食塩相当量（g）：<%= recipe.sodium %></p>
+    <p><%= link_to "#{recipe.comments.count} コメント", recipe_path(recipe.id) %></p>
   </div>
 <% end %>

@@ -1,35 +1,44 @@
-<h1>レシピ投稿フォーム</h1>
-<%= form_with model: @recipe do |f| %>
+<h2>レシピ編集フォーム</h2>
+
+<%= form_with model: @recipe, local: true do |f| %>
   <h4>画像</h4>
   <%= f.file_field :image, accept: "image/*" %>
+  
   <h4>レシピ名</h4>
   <%= f.text_field :name %>
+  
   <h4>レシピ説明</h4>
   <%= f.text_area :introduction %>
+  
   <h4>カテゴリー</h4>
   <%= f.collection_select :category_id, @categories, :id, :name %>
+  
   <h4>エネルギー（kcal）</h4>
   <%= f.text_field :energy %>
+  
   <h4>たんぱく質（g）</h4>
   <%= f.text_field :protein %>
+  
   <h4>脂質（g）</h4>
   <%= f.text_field :fat %>
+  
   <h4>食塩相当量（g）</h4>
   <%= f.text_field :sodium %>
 
   <h4>食材（g）</h4>
   <%= f.fields_for :ingredients do |ingredient_fields| %>
-    <%= ingredient_fields.label :name %>
+    <%= ingredient_fields.label :name, "食材名" %>
     <%= ingredient_fields.text_field :name %>
   <% end %>
 
   <h4>手順</h4>
   <%= f.fields_for :steps do |step_fields| %>
-    <%= step_fields.label :order %>
+    <%= step_fields.label :order, "順番" %>
     <%= step_fields.number_field :order %>
-    <%= step_fields.label :step %>
+    
+    <%= step_fields.label :step, "手順内容" %>
     <%= step_fields.text_field :step %>
   <% end %>
 
-  <%= f.submit "投稿" %>
+  <%= f.submit "更新" %>
 <% end %>

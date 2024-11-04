@@ -1,5 +1,4 @@
-class Admin::CategoriesController < ApplicationController
-
+class Admin::CategoriesController < AdminController
   def create
     @category = Category.new(category_params)
     @category.save
@@ -9,7 +8,6 @@ class Admin::CategoriesController < ApplicationController
   def index
     @categories = Category.all
   end
-
 
   def edit
     @category = Category.find(params[:id])
@@ -27,11 +25,9 @@ class Admin::CategoriesController < ApplicationController
     redirect_to category_path(category.id)
   end
 
-private
+  private
 
   def category_params
     params.require(:category).permit(:category)
   end
-
- 
 end

@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
   def new
     @recipe = Recipe.new
     @categories = Category.all
@@ -36,6 +38,7 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe = Recipe.find(params[:id])
+    @categories = Category.all
   end
 
   def update
@@ -51,7 +54,7 @@ class RecipesController < ApplicationController
   end
 
 
-private
+  private
 
   def recipe_params
     params.require(:recipe).permit(

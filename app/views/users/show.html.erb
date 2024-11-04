@@ -7,22 +7,24 @@
   <%= image_tag @user.get_image(100,100) %>
 </div>
 
-<% if @user == current_user %>
-  <%= link_to "Edit", edit_user_registration_path(@user) %> |
-  <%= link_to "Back", users_path %>
+<% unless @user.guest_user? %>
+  <% if @user == current_user %>
+    <%= link_to "Edit", edit_user_registration_path %> |
+    <%= link_to "Back", users_path %>
+  <% end %>
 <% end %>
 
 <% @recipes.each do |recipe| %>
   <div>
     <%= link_to recipe_path(recipe.id) do %>
-      <%= image_tag recipe.get_image %>
+      <%= image_tag recipe.get_image, size: "200x200" %>
     <% end %>
-    <p>投稿ユーザー画像：<%= image_tag recipe.user.get_image(100,100) %></p>
     <p>レシピ名：<%= recipe.name %></p>
     <p>説明：<%= recipe.introduction %></p>
-    <% if @recipe.user == current_user %>
-      <%= link_to "編集", edit_recipe_path(@recipe) %>
-      <%= link_to "削除", recipe_path(@recipe), method: :delete %>
+    <p><%= link_to "#{recipe.comments.count} コメント", recipe_path(recipe.id) %></p>
+    <% if recipe.user == current_user %>
+      <%= link_to "編集", edit_recipe_path(recipe) %>
+      <%= link_to "削除", recipe_path(recipe), method: :delete %>
     <% end %>
   </div>
 <% end %>
