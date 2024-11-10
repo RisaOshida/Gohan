@@ -15,12 +15,12 @@ class Admin::RecipesController < AdminController
   def update
     recipe = Recipe.find(params[:id])
     recipe.update(recipe_params)
-    redirect_to recipe_path(recipe.id)
+    redirect_to admin_recipe_path(recipe.id)
   end
 
   def destroy
     recipe = Recipe.find(params[:id])
     recipe.destroy
-    redirect_to root_path
+    redirect_to admin_recipes_path
   end
 end
