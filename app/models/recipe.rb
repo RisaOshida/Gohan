@@ -11,11 +11,11 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :steps, reject_if: proc { |attributes| attributes["step"].blank? || attributes["order"].blank? }
 
   def get_image
-    unless image.attached?
-      file_path = Rails.root.join('app/assets/images/noimage.jpg')
-      image.attach(io: File.open(file_path), filename: 'noimage.jpg', content_type: 'image/jpeg')
+    if image.attached?
+      image
+    else
+      "/assets/noimage.jpg" # 静的なデフォルト画像パスを返す
     end
-    image
   end
 
   def gooded_by?(user)

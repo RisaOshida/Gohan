@@ -9,11 +9,11 @@ class User < ApplicationRecord
   has_one_attached :image
   
   def get_image(width, height)
-    unless image.attached?
-      file_path = Rails.root.join('app/assets/images/noimage.jpg')
-      image.attach(io: File.open(file_path), filename: 'noimage.jpg', content_type: 'image/jpeg')
+    if image.attached?
+      image.variant(resize_to_limit: [width, height]).processed
+    else
+      "/assets/noimage.jpg" # 静的なデフォルト画像パスを返す
     end
-    image.variant(resize_to_limit: [width, height]).processed
   end
   
   GUEST_USER_EMAIL = "guest@example.com"
